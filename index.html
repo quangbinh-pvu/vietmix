@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VietMix: kiểm tra độ giữ gốc khi phối cổ phục</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet">
-<style>
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VietMix: kiểm tra độ giữ gốc khi phối cổ phục</title><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800&display=swap" rel="stylesheet"><style>
 :root{--ink:#1c2430;--cham:#1f3a5f;--son:#a63a2f;--vang:#b8862b;--luc:#2f6b4f;--bg:#f2f4f1;--line:#d6dad3;--mut:#5b6573}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 'Be Vietnam Pro',system-ui,sans-serif}
@@ -38,15 +31,9 @@ dialog{border:1px solid var(--line);border-radius:12px;max-width:420px;width:92%
 dialog input{width:100%;font:inherit;padding:8px;margin:4px 0 12px;border:1px solid var(--line);border-radius:8px}
 footer{text-align:center;font-size:12px;color:#7a828d;padding:20px}
 @media(max-width:860px){main{grid-template-columns:1fr}}
-@media(max-width:560px){.sc,.cp{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<header>
+@media(max-width:560px){.sc,.cp{grid-template-columns:1fr}}</style></head><body><header>
   <div style="display:block"><h1>VietMix</h1><p>Phối cổ phục kiểu Gen Z và kiểm tra độ giữ gốc</p></div>
-  <div><span id="gst">Gemini: chưa kết nối</span><button class="chip" id="bset">Cấu hình</button></div>
-</header>
-<main>
+  <div><span id="gst">Gemini: chưa kết nối</span><button class="chip" id="bset">Cấu hình</button></div></header><main>
   <section aria-label="Thiết lập phối đồ">
     <label class="lb" for="so">Trang phục</label><select id="so"></select>
     <label class="lb" for="se">Bối cảnh</label><select id="se"></select>
@@ -63,38 +50,14 @@ footer{text-align:center;font-size:12px;color:#7a828d;padding:20px}
     <p class="mut">Điểm số do bộ quy tắc tính. Gemini chỉ viết lời tư vấn dựa trên kết quả ở trên.</p>
     <button class="go" id="ga">Nhờ Gemini tư vấn</button>
     <div id="gm" aria-live="polite"></div>
-  </section>
-</main>
-<footer>Đội VietMix tại cuộc thi AI Arena Viet Nam 2026</footer>
-
-<dialog id="md"><form method="dialog">
+  </section></main><footer>Đội VietMix tại cuộc thi AI Arena Viet Nam 2026</footer><dialog id="md"><form method="dialog">
   <b>Cấu hình Gemini</b>
   <p class="mut">Khóa chỉ lưu trong trình duyệt của bạn. Khi triển khai công khai, hãy đặt CFG.proxy trỏ tới máy chủ của đội để người xem không phải nhập khóa.</p>
   <label class="mut" for="kk">API key</label><input id="kk" type="password" autocomplete="off">
   <label class="mut" for="km">Tên model (kiểm tra trong AI Studio)</label><input id="km" type="text" value="gemini-1.5-flash">
-  <button class="go" id="ks" value="ok">Lưu</button> <button class="chip" value="cancel">Đóng</button>
-</form></dialog>
-
-<script>
-const CFG={model:'gemini-1.5-flash',proxy:''};
-
-const O={
-aodai:{n:'Áo dài',v:'Toàn quốc',L:128,S:20,W:13,keep:'Giữ hai tà dài và đường ôm eo.',cl:'quần lụa rộng, giày bệt hoặc guốc, khăn voan nhẹ',info:'Áo dài hiện đại hình thành qua nhiều giai đoạn cải biến từ các kiểu áo dài trước đó, và định hình rõ nét trong thế kỷ 20.'},
-nguthan:{n:'Áo ngũ thân tay chẽn',v:'Huế và Trung Bộ',L:92,S:26,W:10,keep:'Giữ cổ đứng, vạt cài bên phải và dáng áo dài quá hông.',cl:'quần thụng lụa, guốc mộc, khăn đóng',info:'Phổ biến thời Nguyễn, thân áo gồm năm thân vải, tay chẽn ôm gọn. Có cách giải thích gắn năm thân với ngũ hành hoặc ngũ thường nhưng các nguồn chưa thống nhất.'},
-aotac:{n:'Áo tấc',v:'Cung đình và lễ nghi',L:100,S:34,W:26,keep:'Giữ tay rộng và độ thụng của áo.',cl:'quần lụa suông, giày vải hoặc giày da mềm, khăn đóng',info:'Kiểu áo thụng tay rộng, thường được dùng như lễ phục trong các dịp trang trọng.'},
-tuthan:{n:'Áo tứ thân',v:'Bắc Bộ, Kinh Bắc',L:88,S:22,W:12,keep:'Giữ yếm bên trong và hai vạt trước buông hoặc thắt.',cl:'váy đen, yếm, khăn mỏ quạ, dép cong',info:'Áo dân gian Bắc Bộ gồm hai thân sau ghép và hai vạt trước, thường mặc với yếm và váy.'},
-baba:{n:'Áo bà ba',v:'Nam Bộ',L:76,S:20,W:14,keep:'Giữ dáng may rộng thoáng và hàng cúc giữa.',cl:'quần lụa hoặc vải, khăn rằn, dép',info:'Áo thường phục của người Nam Bộ, cài cúc giữa, may rộng hợp khí hậu nóng ẩm, hay đi với khăn rằn.'}
-};
-const E={kyyeu:'Chụp kỷ yếu',damcuoi:'Dự tiệc cưới',daopho:'Dạo phố, cà phê',lehoi:'Lễ hội, đền chùa',quocte:'Giao lưu quốc tế'};
-const A={sneaker:'Sneaker',deple:'Dép xỏ ngón',kinh:'Kính râm',mu:'Mũ lưỡi trai',tote:'Túi vải',quat:'Quạt xếp',jeans:'Quần jeans',trangsuc:'Trang sức bản to'};
-const P=[['Chàm và ngà','#1f3a5f','#efe6cc'],['Đỏ son và vàng','#a63a2f','#d9a53a'],['Nâu đất và kem','#7a5230','#eadfc4'],['Lam gốm và trắng','#2f6f8f','#f6f4ee']];
-
-const FIT={
-aotac:{daopho:[20,'Áo tấc thường được dùng như lễ phục, mặc dạo phố hằng ngày dễ lệch ngữ cảnh.']},
-tuthan:{damcuoi:[5,'Tứ thân là trang phục dân gian, đi tiệc cưới nên chọn bản may lụa và màu sáng trang nhã.']},
-baba:{lehoi:[10,'Bà ba là thường phục, đến đền chùa nên chọn màu trầm, vải dày, không xuyên thấu.'],damcuoi:[10,'Tiệc cưới thường cần mức trang trọng cao hơn, nên chọn bà ba lụa hoặc tơ, màu đậm.']}
-};
-const R=[
+  <button class="go" id="ks" value="ok">Lưu</button> <button class="chip" value="cancel">Đóng</button></form></dialog><script>const CFG={model:'gemini-1.5-flash',proxy:''};const O={aodai:{n:'Áo dài',v:'Toàn quốc',L:128,S:20,W:13,keep:'Giữ hai tà dài và đường ôm eo.',cl:'quần lụa rộng, giày bệt hoặc guốc, khăn voan nhẹ',info:'Áo dài hiện đại hình thành qua nhiều giai đoạn cải biến từ các kiểu áo dài trước đó, và định hình rõ nét trong thế kỷ 20.'},nguthan:{n:'Áo ngũ thân tay chẽn',v:'Huế và Trung Bộ',L:92,S:26,W:10,keep:'Giữ cổ đứng, vạt cài bên phải và dáng áo dài quá hông.',cl:'quần thụng lụa, guốc mộc, khăn đóng',info:'Phổ biến thời Nguyễn, thân áo gồm năm thân vải, tay chẽn ôm gọn. Có cách giải thích gắn năm thân với ngũ hành hoặc ngũ thường nhưng các nguồn chưa thống nhất.'},aotac:{n:'Áo tấc',v:'Cung đình và lễ nghi',L:100,S:34,W:26,keep:'Giữ tay rộng và độ thụng của áo.',cl:'quần lụa suông, giày vải hoặc giày da mềm, khăn đóng',info:'Kiểu áo thụng tay rộng, thường được dùng như lễ phục trong các dịp trang trọng.'},tuthan:{n:'Áo tứ thân',v:'Bắc Bộ, Kinh Bắc',L:88,S:22,W:12,keep:'Giữ yếm bên trong và hai vạt trước buông hoặc thắt.',cl:'váy đen, yếm, khăn mỏ quạ, dép cong',info:'Áo dân gian Bắc Bộ gồm hai thân sau ghép và hai vạt trước, thường mặc với yếm và váy.'},baba:{n:'Áo bà ba',v:'Nam Bộ',L:76,S:20,W:14,keep:'Giữ dáng may rộng thoáng và hàng cúc giữa.',cl:'quần lụa hoặc vải, khăn rằn, dép',info:'Áo thường phục của người Nam Bộ, cài cúc giữa, may rộng hợp khí hậu nóng ẩm, hay đi với khăn rằn.'}
+};const E={kyyeu:'Chụp kỷ yếu',damcuoi:'Dự tiệc cưới',daopho:'Dạo phố, cà phê',lehoi:'Lễ hội, đền chùa',quocte:'Giao lưu quốc tế'};const A={sneaker:'Sneaker',deple:'Dép xỏ ngón',kinh:'Kính râm',mu:'Mũ lưỡi trai',tote:'Túi vải',quat:'Quạt xếp',jeans:'Quần jeans',trangsuc:'Trang sức bản to'};const P=[['Chàm và ngà','#1f3a5f','#efe6cc'],['Đỏ son và vàng','#a63a2f','#d9a53a'],['Nâu đất và kem','#7a5230','#eadfc4'],['Lam gốm và trắng','#2f6f8f','#f6f4ee']];const FIT={aotac:{daopho:[20,'Áo tấc thường được dùng như lễ phục, mặc dạo phố hằng ngày dễ lệch ngữ cảnh.']},tuthan:{damcuoi:[5,'Tứ thân là trang phục dân gian, đi tiệc cưới nên chọn bản may lụa và màu sáng trang nhã.']},baba:{lehoi:[10,'Bà ba là thường phục, đến đền chùa nên chọn màu trầm, vải dày, không xuyên thấu.'],damcuoi:[10,'Tiệc cưới thường cần mức trang trọng cao hơn, nên chọn bà ba lụa hoặc tơ, màu đậm.']}
+};const R=[
 {o:['aotac'],a:['deple'],pen:25,why:'Áo tấc dáng rộng và nghiêm, dép xỏ ngón làm mất sự trang trọng.',fix:'Đổi sang giày vải hoặc giày da mềm đơn sắc.',src:null},
 {o:['aotac'],a:['mu'],pen:15,why:'Mũ lưỡi trai mang tinh thần thể thao, lệch với một bộ lễ phục.',fix:'Dùng khăn đóng hoặc bỏ mũ.',src:null},
 {o:['aotac'],e:['lehoi','damcuoi'],a:['sneaker'],pen:12,why:'Ở nơi lễ nghi, sneaker làm bộ lễ phục mất cân bằng.',fix:'Dùng giày vải đơn sắc, để sneaker cho buổi chụp kỷ yếu.',src:null},
@@ -108,32 +71,20 @@ const R=[
 {x:['aotac'],e:['damcuoi'],a:['sneaker'],pen:10,why:'Tiệc cưới thường cần mức trang trọng cao hơn, sneaker kéo cả bộ về phong cách thường ngày.',fix:'Chọn giày bệt hoặc guốc.',src:null},
 {o:['aodai','nguthan'],e:['daopho','kyyeu'],a:['sneaker'],pen:0,why:'Hướng remix ít rủi ro: giữ nguyên phom áo, chỉ đổi giày.',src:null},
 {a:['tote'],pen:0,why:'Túi vải đơn sắc dễ hòa với phần lớn cổ phục.',src:null}
-];
-const LV={avoid:['Nên tránh','var(--son)'],caution:['Cân nhắc','var(--vang)'],ok:['Ổn','var(--luc)']};
-const SCHEMA={type:'OBJECT',properties:{verdict:{type:'STRING'},tweaks:{type:'ARRAY',items:{type:'STRING'}},story:{type:'STRING'},uncertain:{type:'STRING'}},required:['verdict','tweaks','story','uncertain']};
-
-const $=s=>document.querySelector(s);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ls=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
-const S={o:'nguthan',e:'daopho',p:0,a:new Set(['sneaker'])};
-
-function evaluate(){
+];const LV={avoid:['Nên tránh','var(--son)'],caution:['Cân nhắc','var(--vang)'],ok:['Ổn','var(--luc)']};const SCHEMA={type:'OBJECT',properties:{verdict:{type:'STRING'},tweaks:{type:'ARRAY',items:{type:'STRING'}},story:{type:'STRING'},uncertain:{type:'STRING'}},required:['verdict','tweaks','story','uncertain']};const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));const ls=k=>{try{return localStorage.getItem(k)}catch(e){return null}};const S={o:'nguthan',e:'daopho',p:0,a:new Set(['sneaker'])};function evaluate(){
   const hits=[],f=(FIT[S.o]||{})[S.e];
   if(f)hits.push({pen:f[0],why:f[1],fix:'Chọn trang phục khác cho bối cảnh này, hoặc giảm bớt phụ kiện phá cách.',src:null});
   R.forEach(r=>{if((!r.o||r.o.includes(S.o))&&(!r.e||r.e.includes(S.e))&&!(r.x&&r.x.includes(S.o))&&r.a.every(a=>S.a.has(a)))hits.push(r)});
   return{score:Math.max(20,100-hits.reduce((s,h)=>s+h.pen,0)),hits};
-}
-function svg(k,c1,c2){
+}function svg(k,c1,c2){
   const{L,S:s,W}=O[k],b=22+L;
   return `<svg viewBox="0 0 140 190" width="150" role="img" aria-label="Minh họa dáng áo, không phải ảnh thật"><polygon points="50,22 90,22 96,${b} 44,${b}" fill="${c1}"/><polygon points="50,24 ${50-s},30 ${50-s},${30+W} 50,${W+32}" fill="${c1}" opacity=".85"/><polygon points="90,24 ${90+s},30 ${90+s},${30+W} 90,${W+32}" fill="${c1}" opacity=".85"/><rect x="62" y="16" width="16" height="10" rx="3" fill="${c2}"/><rect x="44" y="${b-6}" width="52" height="6" fill="${c2}"/></svg>`;
-}
-function build(){
+}function build(){
   $('#so').innerHTML=Object.entries(O).map(([k,v])=>`<option value="${k}">${esc(v.n)} (${esc(v.v)})</option>`).join('');
   $('#se').innerHTML=Object.entries(E).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join('');
   $('#pp').innerHTML=P.map((p,i)=>`<button class="chip" data-p="${i}"><span class="sw"><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></span>${esc(p[0])}</button>`).join('');
   $('#pa').innerHTML=Object.entries(A).map(([k,v])=>`<button class="chip" data-a="${k}">${esc(v)}</button>`).join('');
-}
-function render(){
+}function render(){
   $('#so').value=S.o;$('#se').value=S.e;
   document.querySelectorAll('[data-p]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.p===S.p)));
   document.querySelectorAll('[data-a]').forEach(b=>b.setAttribute('aria-pressed',String(S.a.has(b.dataset.a))));
@@ -144,19 +95,14 @@ function render(){
   $('#ht').innerHTML=hits.length?hits.map(h=>{const l=LV[h.pen>=15?'avoid':h.pen>0?'caution':'ok'];return `<li style="border-color:${l[1]}"><b style="color:${l[1]}">${l[0]}</b> ${esc(h.why)}${h.fix?`<div class="mut">Gợi ý: ${esc(h.fix)}</div>`:''}<div class="src">${h.src?'Nguồn: '+esc(h.src):'Chưa có nguồn kiểm chứng, đây là gợi ý của đội.'}</div></li>`}).join(''):'<li style="border-color:var(--luc)"><b style="color:var(--luc)">Không có điểm cần lưu ý</b> Bộ phối này không trúng quy tắc nào trong kho hiện có. Kho còn nhỏ nên đây chưa phải bảo chứng.</li>';
   $('#if').textContent=o.info;
   $('#gm').replaceChildren();
-}
-function setSt(t,c){const e=$('#gst');e.textContent=t;e.style.color=c||'';e.style.borderColor=c||''}
-function line(t,b){const p=document.createElement('p');if(b){const s=document.createElement('b');s.textContent=b;p.append(s,' ')}p.append(t);$('#gm').append(p)}
-const prompt=c=>`Bạn là cố vấn trang phục truyền thống Việt Nam cho học sinh, sinh viên.
+}function setSt(t,c){const e=$('#gst');e.textContent=t;e.style.color=c||'';e.style.borderColor=c||''}function line(t,b){const p=document.createElement('p');if(b){const s=document.createElement('b');s.textContent=b;p.append(s,' ')}p.append(t);$('#gm').append(p)}const prompt=c=>`Bạn là cố vấn trang phục truyền thống Việt Nam cho học sinh, sinh viên.
 Chỉ dùng dữ kiện trong phần DỮ LIỆU. Không tự thêm quy tắc, tên sách hay nguồn tham khảo. Điều gì không chắc thì nói rõ là không chắc. Viết tiếng Việt, ngắn, cụ thể, không sáo rỗng.
-DỮ LIỆU:
-${JSON.stringify(c)}
+DỮ LIỆU:${JSON.stringify(c)}
 Việc cần làm:
 1. verdict: nhận định 2 câu về bộ phối, bám vào điểm và các quy tắc trúng.
 2. tweaks: đúng 2 cách chỉnh để vừa giữ tinh thần gốc vừa hợp phong cách người dùng.
 3. story: 1 câu về trang phục, chỉ dựa trên trường thong_tin_goc.
-4. uncertain: những gì trong lời khuyên chưa được kiểm chứng.`;
-async function ask(){
+4. uncertain: những gì trong lời khuyên chưa được kiểm chứng.`;async function ask(){
   const key=ls('vm_key'),model=ls('vm_model')||CFG.model;
   const url=CFG.proxy||`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
   if(!CFG.proxy&&!key){setSt('Gemini: cần API key');$('#md').showModal();return}
@@ -184,8 +130,7 @@ async function ask(){
 
 build();
 $('#so').onchange=e=>{S.o=e.target.value;render()};
-$('#se').onchange=e=>{S.e=e.target.value;render()};
-document.addEventListener('click',e=>{
+$('#se').onchange=e=>{S.e=e.target.value;render()};document.addEventListener('click',e=>{
   const b=e.target.closest('.chip');if(!b)return;
   if(b.dataset.p!==undefined)S.p=+b.dataset.p;
   else if(b.dataset.a){S.a.has(b.dataset.a)?S.a.delete(b.dataset.a):S.a.add(b.dataset.a)}
@@ -199,7 +144,4 @@ $('#ks').onclick=()=>{
   setSt(CFG.proxy||ls('vm_key')?'Gemini: sẵn sàng, chưa gọi':'Gemini: chưa kết nối');
 };
 setSt(CFG.proxy||ls('vm_key')?'Gemini: sẵn sàng, chưa gọi':'Gemini: chưa kết nối');
-render();
-</script>
-</body>
-</html>
+render();</script></body></html>
